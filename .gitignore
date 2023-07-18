@@ -1,0 +1,10 @@
+/matches
+/matches_labor
+/images
+/MeshroomCache
+/old
+.DS_Store
+*.pyc
+/build
+/dist
+/packages
