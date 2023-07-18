@@ -19,7 +19,7 @@
 <h3 align="center">Deep Feature Matching</h3>
 
   <p align="center">
-    A social media bot, capable of posting to Instagram and Whatsapp!
+    Meshroom DFM is a Meshroom implementation of the Deep Feature Matching Algorithm from <a href="https://github.com/ufukefe/DFM">ufukefe</a>.
     <br />
     <a href="#readme-toc"><strong>Explore the docs »</strong></a>
     <br />
@@ -36,15 +36,12 @@
 
 
 <!-- TABLE OF CONTENTS -->
-<a name="readme-toc"></a>
+<!-- <a name="readme-toc"></a>
 <details>
   <summary>Table of Contents</summary>
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
-      <!-- <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul> -->
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
@@ -74,7 +71,7 @@
     <li><a href="#license">License</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
-</details>
+</details> -->
 
 
 <!-- ABOUT THE PROJECT -->
@@ -82,9 +79,9 @@
 
 ![Product Name Screen Shot][product-screenshot]
 
-The HKA Social Media Bot is a tool capable of posting images and messages to various social media websites. ~~Keep your workflow steady with scheduled posts and automatic image generation!~~
-
-<!-- The HKA Social Media Bot is a command line tool, capable of sending or posting various messages to social media websites. Keep your workflow steady with scheduled posts and automatic image generation! -->
+MeshroomDFM is a Meshroom Node that employs a Convolutional Neural Network to generate and refine feature matches between multiple images.
+The goal of this project is to replace the classical Photogrammetry Pipeline Nodes for Feature Extraction, Image Matching and Feature Matching with an all-in-one solution.
+Since Developer Documentation for creating custom Meshroom Nodes is hard to come by, the documentation for this project also demonstrates how to build and deploy binaries build with python and pyinstaller.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -105,174 +102,71 @@ The HKA Social Media Bot is a tool capable of posting images and messages to var
 <!-- GETTING STARTED -->
 ## Getting Started
 
-### Installation
-* Creating a new virtual environment
+  You can simply install the precompiled binaries for linux in the <a href="#installation">Installation</a> step.
+  If you wish to build the binaries yourself, follow <a href="#building-from-source">Building from Source</a>
 
-  This app is built on [Flask][flask], which recommends creating a new conda environment
-  ```sh
-  conda create -n socialmediabotEnv python=3.9.7 anaconda
-  conda activate socialmediabotEnv
-  ```
+### Installation
+
+  * download the precompiled binaries for Linux
+
+  * copy the binaries into the Meshroom binaries directory 
+    ```sh
+    cp dist path/to/bin
+    ```
+
+  * download the Mehsroom Nodes
+
+  * copy the nodes into the Meshroom nodes directory
+    ```sh
+    cp nodes path/to/nodes
+    ```
+
+
+### Building from Source
+
+  To build the binaries yourself, you can use pyinstaller to export the project.
 
   > **Note**
-  > If you have closed your terminal window, you can reactivate your virtual environment by typing ```conda activate socialmediabotEnv``` again
+  > Pyinstaller only allows to build binaries for the platform you're running on.
+  > If you wish to build the binaries for windows, you will have to execute pyinstaller on a windows machine.
 
-* Clone the repo
-   ```sh
-   git clone https://github.com/mirkosprojects/socialmedia-bot.git
-   ```
-* Install dependencies
-  ```sh
-  cd socialmedia-bot
-  pip install -r requirements.txt
-  ````
-  For more information about the dependencies see [requirements][requirements]
+  * Creating a new virtual environment
 
-### Creating a Facebook Business Account
+    It is recommended to create a virtual environment with the required packages
+    ```sh
+    conda env create -f environment.yml
+    ```
 
-```
-HOW TO CREATE OR CONVERT TO A FACEBOOK BUSINESS ACCOUNT
-```
+  * Execute pyinstaller to build binaries
+    ```sh
+    pyinstaller dfm_wrapper.spec --onefile      # build the Deep Feature Matching Program
+    pyinstaller dfm_analyzer.spec --onefile     # build Deep Feature Matching Analyzer
+    ```
 
-### Creating an Instagram Business Account
+  * After building the binaries, you can continue with the installation steps 3 and 4
 
-```
-HOW TO CREATE OR CONVERT TO AN INSTAGRAM BUSINESS ACCOUNT
-```
-
-### Linking to Facebook
-```
-HOW TO LINK WHATSAPP AND INSTAGRAM ACCOUNTS TO FACEBOOK
-```
-
-### Getting an Access Token
-
-<!-- This program needs your authorization in order to publish to Instagram and Whatsapp. To grant access, login to your Facebook Account and search for HKA SocialMediaBot. 
-Click add and grant access to the requested rights.
-
-Once you've granted the required permissions, you will receive an Access Token. Copy this Token and continue with <a href="#usage">Usage</a> -->
-
-```
-HOW TO ADD FACEBOOK APP TO ACCOUNT AND RECEIVE ACCESS TOKEN
-```
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
+  <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-### Starting the app
-* Starting the app
-   ```sh
-   python main.py
-   ```
-   Once the app has started, it will output an ip adress (usually 127.0.0.1:5000), copy and paste it in your browser
+### Implementing the DFM Node
 
-### Sign up
-You will be redirected to a Login Page, create a new user account and log in with your email and password.
+  * start Meshroom
 
-> **Note**
-> The website is running locally on your machine. Email adresses and passwords are stored in a local database at ```socialmedia-bot/instance/database.db```
+  * right click and type "DeepFeatureMatching" to add the Deep Feature Matching Node
 
-### Updating credentials
-You will have to update your credentials. 
-Go to ```Settings``` &rarr; ```Whatsapp```, enter your access token and phone number and click ```Update```.
-Repeat this step with your other social media accounts.
-
-### Creating a contact list
-Sending messages to whatsapp contacts requires their phone number.
-Go to ```Settings``` &rarr; ```Contacts``` and enter the contacts, you wish to message through whatsapp.
-
-### Creating your first post
-Go back to ```Home``` and type in a text, you wish to post.
-Add an image to the post by clicking on ```Select File``` or drag and drop it.
-Select the websites, you wish to post to and click on ```Post```.
-
-> **Note** 
-> You can have up to 1000 free whatsapp conversations per month, for more information about pricing, see [pricing][whatsapp-pricing]
-
-> **Note**
-> You can post up to 25 pictures on instagram per day
-
-> **Warning**
-> In order to post an image through the Graph-API, this program publishes the image on [imgbox.com][imgbox]. This means, your photos will be available on the internet, even after you delete them from Instagram.
+  * The node has inputs and outputs. Connect them as follows.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-<!-- PROFESSIONAL USAGE / NEXT STEPS -->
-## Next steps
-
-### Running the app on the local network
-You can run this application locally on your network, start it as follows
-```sh
-python main.py --host=0.0.0.0
-```
-Any other device on the network can now open the website by typing the returned ip adress.
-
-> **Note**
-> The default port is 5000. In some cases this port might be used by different applications. You can specify a different port with the ```--port``` argument
-
-> **Warning**
-> Multiple users shouldn't access the same account simultaneously
-
-### Publishing the app to the internet
-Cloud hosting providers like [DigitalOcean][digital-ocean] can host websites for you, making your app available on the internet.
-
-> **Warning**
-> Additional security measures might need to be implemented
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-<!-- ROADMAP -->
-## Roadmap
-
-- [ ] Proof of Concept
-    - [x] Whatsapp
-    - [x] Instagram
-    - [ ] Facebook
-    - [ ] Twitter
-    - [ ] Snapchat
-    - [ ] LinkedIn
-- [ ] Webapp
-    - [x] Rewrite as webapp using Flask
-    - [x] HTML GUI
-    - [ ] Database
-        - [x] password access
-        - [x] storing contacts
-        - [ ] storing posts
-    - [ ] Publishing to the internet
-        - [ ] Security improvements
-        - [ ] Deploy using Digital Ocean or other webhost
-- [ ] Publishing the facebook app
-- [ ] Image Generator using templates
-- [ ] Scheduling Posts
-
-
-<!-- See the [open issues](https://github.com/mirkosprojects/socialmedia-bot/issues) for a full list of proposed features (and known issues). -->
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 <!-- PICTURES AND VIDEOS -->
-## Pictures and Videos
-
-### Sending a whatsapp message and posting to instagram using Socialbot
-
-![Sending a Whatsapp message][whatsapp-instagram-demo]
-
-### Changing the whatsapp access token and phone number
-
-![Changing Whatsapp settings][whatsapp-settings]
-
-### Editing the contacts
-
-![Editing Contact][contact-settings]
+<!-- ## Pictures and Videos
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 
 <!-- LICENSE -->
@@ -297,8 +191,7 @@ Project Link: [https://github.com/mirkosprojects/socialmedia-bot](https://github
 ## Acknowledgments
 
 * [Readme Template](https://github.com/othneildrew/Best-README-Template)
-* [Flask Template](https://github.com/techwithtim/Flask-Web-App-Tutorial)
-* <a href="https://www.flaticon.com/de/kostenlose-icons/bot" title="bot Icons">Bot Icons erstellt von Smashicons - Flaticon</a>
+* [DFM: A Performance Baseline for Deep Feature Matching](https://github.com/ufukefe/DFM)
 * [iMessage Speech Bubbles](https://codepen.io/AllThingsSmitty/pen/jommGQ)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -320,6 +213,7 @@ Project Link: [https://github.com/mirkosprojects/socialmedia-bot](https://github
 [license-url]: https://github.com/mirkosprojects/socialmedia-bot/blob/main/LICENSE
 
 [flask]: https://flask.palletsprojects.com/en/2.2.x/
+[dfm]: https://github.com/ufukefe/DFM
 
 <!-- RESSOURCES -->
 [product-screenshot]: /website/static/images/user_page1.png
