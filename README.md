@@ -8,6 +8,9 @@
 [![MIT License][license-shield]][license-url]
 <!-- [![LinkedIn][linkedin-shield]][linkedin-url] -->
 
+> **Note**
+> Testing
+
 
 <!-- PROJECT LOGO -->
 <br />
@@ -287,10 +290,10 @@ Since Developer Documentation for creating custom Meshroom Nodes is hard to come
 * One features file exists for every image
 </details>
 
-> **Info**
+> **Note**
 > Depending on the capabilities of your graphics card, you might need to adjust the image size of the input images. You can use the ImageProcessing Node to scale down the images.
 
-> **Error**
+> **Warning**
 > With the current implementation of MeshroomDFM, the Deep Feature Matching Algorithm produces matches and features, however in my experiments, the pipeline produces errors either in the Structure from Motion or in the Meshing step.
 > To fix this, further research is needed.
 
