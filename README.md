@@ -100,9 +100,9 @@ Since Developer Documentation for creating custom Meshroom Nodes is hard to come
     pyinstaller dfm_analyzer.spec --onefile     # build Deep Feature Matching Analyzer
     ```
 
-    > **Note**
-    > Pyinstaller only allows to build binaries for the platform you're running on.
-    > If you wish to build the binaries for windows, you have to execute pyinstaller on a windows machine.
+> **Note**
+> Pyinstaller only allows to build binaries for the platform you're running on.
+> If you wish to build the binaries for windows, you have to execute pyinstaller on a windows machine.
 
   * Copy the files to your meshroom directory (Replace  <your_meshroom_folder> with the path to your meshroom folder)
 
@@ -287,12 +287,12 @@ Since Developer Documentation for creating custom Meshroom Nodes is hard to come
 * One features file exists for every image
 </details>
 
-  > **Info**
-  > Depending on the capabilities of your graphics card, you might need to adjust the image size of the input images. You can use the ImageProcessing Node to scale down the images.
+> **Info**
+> Depending on the capabilities of your graphics card, you might need to adjust the image size of the input images. You can use the ImageProcessing Node to scale down the images.
 
-  > **Error**
-  > With the current implementation of MeshroomDFM, the Deep Feature Matching Algorithm produces matches and features, however in my experiments, the pipeline produces errors either in the Structure from Motion or in the Meshing step.
-  > To fix this, further research is needed.
+> **Error**
+> With the current implementation of MeshroomDFM, the Deep Feature Matching Algorithm produces matches and features, however in my experiments, the pipeline produces errors either in the Structure from Motion or in the Meshing step.
+> To fix this, further research is needed.
 
   <!-- * The functionality of the Deep Feature Matching Node is described [here][DeepFeatureMatching.py-documentation]
 
@@ -307,8 +307,8 @@ Since Developer Documentation for creating custom Meshroom Nodes is hard to come
   ![Result of DeepFeatureMatchingAnalyzer Node][dfm-result]
 
   * The DeepFeatureMatchingAnalyzer Node draws all matches between two images as shown above.
-  > **Warning**
-  > This Node was developed for debugging, it is not recommended to be used on large datasets.
+> **Warning**
+> This Node was developed for debugging, it is not recommended to be used on large datasets.
 
   | Inputs | Function |
   |----------|:-------------|
