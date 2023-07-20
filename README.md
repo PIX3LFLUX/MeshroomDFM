@@ -19,7 +19,7 @@
 <h3 align="center">Meshroom Deep Feature Matching</h3>
 
   <p align="center">
-    Meshroom DFM is a Meshroom implementation of the Deep Feature Matching Algorithm from [ufukefe][dfm-url].
+    Meshroom DFM is a Meshroom implementation of the Deep Feature Matching Algorithm from <a href=" https://github.com/ufukefe/DFM">ufukefe</a>.
     <br />
     <a href="#readme-toc"><strong>Explore the docs »</strong></a>
     <br />
