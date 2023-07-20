@@ -6,10 +6,6 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-<!-- [![LinkedIn][linkedin-shield]][linkedin-url] -->
-
-> **Note**
-> Testing
 
 
 <!-- PROJECT LOGO -->
@@ -96,11 +92,16 @@ Since Developer Documentation for creating custom Meshroom Nodes is hard to come
     ```sh
     conda env create -f environment.yml
     ```
+  * Activate the virtual environment
+
+    ```sh
+    conda activate MeshroomDFM
+    ```
 
   * Execute pyinstaller to build the binaries
     ```sh
-    pyinstaller dfm_wrapper.spec --onefile      # build the Deep Feature Matching Program
-    pyinstaller dfm_analyzer.spec --onefile     # build Deep Feature Matching Analyzer
+    pyinstaller dfm_wrapper.spec      # build the Deep Feature Matching Program
+    pyinstaller dfm_analyzer.spec     # build Deep Feature Matching Analyzer
     ```
 
 > **Note**
