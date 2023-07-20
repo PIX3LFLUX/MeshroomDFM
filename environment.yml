@@ -1,4 +1,4 @@
-name: dfm
+name: MeshroomDFM
 channels:
   - pytorch
   - defaults
@@ -12,3 +12,4 @@ dependencies:
   - opencv==3.4.2
   - ipykernel == 5.3.4
   - pyyaml == 5.4.1
+  - pyinstaller == 5.13.0
