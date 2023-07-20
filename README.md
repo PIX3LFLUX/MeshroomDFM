@@ -64,19 +64,6 @@ Since Developer Documentation for creating custom Meshroom Nodes is hard to come
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-<!-- ### Built With
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
-
-
 <!-- GETTING STARTED -->
 ## Getting Started
 
@@ -299,6 +286,13 @@ Since Developer Documentation for creating custom Meshroom Nodes is hard to come
 * Every line defines a feature in coordinates of width and height
 * One features file exists for every image
 </details>
+
+  > **Info**
+  > Depending on the capabilities of your graphics card, you might need to adjust the image size of the input images. You can use the ImageProcessing Node to scale down the images.
+
+  > **Error**
+  > With the current implementation of MeshroomDFM, the Deep Feature Matching Algorithm produces matches and features, however in my experiments, the pipeline produces errors either in the Structure from Motion or in the Meshing step.
+  > To fix this, further research is needed.
 
   <!-- * The functionality of the Deep Feature Matching Node is described [here][DeepFeatureMatching.py-documentation]
 
