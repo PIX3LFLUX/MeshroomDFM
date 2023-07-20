@@ -18,7 +18,7 @@
 <h3 align="center">Meshroom Deep Feature Matching</h3>
 
   <p align="center">
-    Meshroom DFM is a Meshroom implementation of the Deep Feature Matching Algorithm from <a href=" https://github.com/ufukefe/DFM">ufukefe</a>.
+    Meshroom DFM is a Meshroom implementation of the Deep Feature Matching Algorithm from <a href="https://github.com/ufukefe/DFM">ufukefe</a>.
     <br />
     <a href="#readme-toc"><strong>Explore the docs »</strong></a>
     <br />
@@ -53,8 +53,6 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
-![Product Name Screen Shot][product-screenshot]
 
 MeshroomDFM is a project designed for [Alicevision Meshroom][meshroom-url], that employs a Convolutional Neural Network to generate and refine feature matches between multiple images.
 The goal of this project is to replace the classical Photogrammetry Pipeline Nodes for Feature Extraction, Image Matching and Feature Matching with an all-in-one solution.
