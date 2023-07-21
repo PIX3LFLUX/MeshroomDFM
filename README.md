@@ -25,14 +25,6 @@
   </p>
 </div>
 
-<!-- > [!NOTE]  
-> Highlights information that users should take into account, even when skimming.
-
-> [!IMPORTANT]  
-> Crucial information necessary for users to succeed.
-
-> [!WARNING]  
-> Critical content demanding immediate user attention due to potential risks. -->
 
 <!-- TABLE OF CONTENTS -->
 <a name="readme-toc"></a>
@@ -64,23 +56,24 @@
 
 MeshroomDFM is a project designed for [Alicevision Meshroom][meshroom-url], that employs a Convolutional Neural Network to generate and refine feature matches between multiple images.
 The goal of this project is to replace the classical Photogrammetry Pipeline Nodes for Feature Extraction, Image Matching and Feature Matching with an all-in-one solution.
-Since Developer Documentation for creating custom Meshroom Nodes is hard to come by, the documentation for this project also demonstrates how to build and deploy binaries build with python and pyinstaller.
+
+Since Developer Documentation for creating custom Meshroom Nodes is hard to come by, this project will also give you step by step instructions for building and deploying Meshroom Nodes using python and pyinstaller.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-  You can simply install the precompiled binaries for linux in the <a href="#installation">Installation</a> step.
-  If you wish to build the binaries yourself, follow <a href="#building-from-source">Building from Source</a>
+  * You can install the precompiled binaries for linux in the <a href="#installation">Installation</a> step
+  * If you wish to build the binaries yourself, follow <a href="#building-from-source">Building from Source</a>
 
 ### Installation
-  * The precompiled binaries for Linux can be found [here][latest-release]
-  * If you wish to install the project on other operating systems, follow <a href="#building-from-source">Building from Source</a>
-
-
+ 
+  | Operating System | Installation | Requirements |
+  |----------|---------|---------|
+  | Linux | [Latest Release][latest-release] | [Meshroom Requirements][alicevision-requirements-url] |
+  | Windows | <a href="#building-from-source">Building from Source</a> | [Meshroom Requirements][alicevision-requirements-url] |
 
 ### Building from Source
 
@@ -111,9 +104,9 @@ Since Developer Documentation for creating custom Meshroom Nodes is hard to come
     pyinstaller dfm_analyzer.spec     # build Deep Feature Matching Analyzer
     ```
 
-> [!NOTE]  
-> Pyinstaller only allows to build binaries for the platform you're running on.
-> If you wish to build the binaries for windows, you have to execute pyinstaller on a windows machine.
+    > [!NOTE]  
+    > Pyinstaller only allows to build binaries for the platform you're running on.
+    > If you wish to build the binaries for windows, you have to execute pyinstaller on a windows machine.
 
   * Copy the files to your meshroom directory (Replace  <your_meshroom_folder> with the path to your meshroom folder)
 
@@ -129,10 +122,8 @@ Since Developer Documentation for creating custom Meshroom Nodes is hard to come
 
 ### Adding the DFM Nodes to Meshroom
   * start Meshroom
-
-  * right click in the pipeline area and search for "DeepFeatureMatching" to add the Deep Feature Matching Node
-
-  * repeat for DeepFeatureMatchingAnalyzer and DFMImageTree
+  * right click in the pipeline area and search for the DeepFeatureMatching, DeepFeatureMatchingAnalyzer and DFMImageTree nodes
+  * you can add them by left clicking
 
 ### Using the DFM Nodes
 
@@ -144,23 +135,23 @@ Since Developer Documentation for creating custom Meshroom Nodes is hard to come
 
   ![DeepFeatureMatching Node in Meshroom][dfm-node]
 
-  The DeepFeatureMatching node uses the [DFM: A Performance Baseline for Deep Feature Matching][dfm-url] algorithm to match features between two images. The idea is to replace the FeatureExtraction, ImageMatching and FeatureMatching Nodes from Meshroom with an all-in-one solution. 
+  The DeepFeatureMatching node uses the [DFM: A Performance Baseline for Deep Feature Matching][dfm-url] algorithm to match features between two images. The idea is to replace the [FeatureExtraction][feature-extraction-url], [ImageMatching][image-matching-url] and [FeatureMatching][feature-matching-url] Nodes from Meshroom with an all-in-one solution. 
   
-  The Convolutional Neural Network, that is based on the VGG-19 architecture employs multiple convolutional layers, each of which matches and refines features between two images. Therefore each extracted feature is automatically matched to another feature, without having to use a feature matching algorithm.
+  The Convolutional Neural Network, that is based on the VGG-19 architecture employs multiple convolutional layers, each of which matches and refines features between two images. Therefore each extracted feature of image A is automatically matched to a feature of image B, without having to use a feature matching algorithm.
 
-  | Inputs | Function |
-  |----------|:-------------|
-  | sfmData    | A sfm file defining metadata about the images, such as filepath, sensor size, etc. |
-  | imagePairs | A text file containing the IDs of images to match in a pyramid order |
-  | minMatches | The minimum number of matches between to images to save. Image Pairs with less than minMatches don't get saved |
+  | Inputs | Example | Description |
+  |----------|---------|:-------------|
+  | sfmData    | cameraInit.sfm | A sfm file defining metadata about the images, such as filepath, sensor size, etc. |
+  | imagePairs | imagePairs.txt | A text file containing the IDs of images to match in a pyramid order |
+  | minMatches |  | The minimum number of matches between to images to save. The features and matches of image pairs with less than minMatches matches don't get saved |
 
-  | Outputs | Function |
-  |----------|:-------------|
-  | matchesFolder  | The output folder for matches |
-  | featuresFolder | The output folder for features |
+  | Outputs | Example | Description |
+  |----------|---------|:-------------|
+  | matchesFolder  | matches.txt | The output folder for the matches files |
+  | featuresFolder | features.feat | The output folder for the features files |
 
 <details>
-  <summary>sfmData Example</summary>
+  <summary>cameraInit.sfm Example</summary>
 
   ```json
   {
@@ -235,10 +226,11 @@ Since Developer Documentation for creating custom Meshroom Nodes is hard to come
   ```
 
   * Every image is stored as a dictonary inside the _views_ list
+  * Every image has a unique _viewId_, which is used by most nodes
 </details>
 
 <details>
-  <summary>inputPairs Example</summary>
+  <summary>imagePairs.txt Example</summary>
 
   ```
   270452153 552276230 807656038 1218463010 1352748929 2032756097
@@ -248,11 +240,14 @@ Since Developer Documentation for creating custom Meshroom Nodes is hard to come
   1352748929 2032756097
   ```
 
-  * The image ID in the first column is to be matched against all following image IDs
+  * Each number in the imagePairs file represents the unique _viewId_ of an image
+  * Starting with the first image in the first row, this image should be matched against all following images in the same row
+  * The first image in the second row should be matched against all following images in the second row, etc.
+
 </details>
 
 <details>
-  <summary>matches Example</summary>
+  <summary>matches.txt Example</summary>
 
   ```
   270452153 552276230
@@ -275,11 +270,11 @@ Since Developer Documentation for creating custom Meshroom Nodes is hard to come
   * The second lines holds the number of feature extraction algorithms used
   * The third line holds the feature extraction algorithm and the number of matches
   * The following lines define the positions of a feature in the features file of image 1, that match
-  * The following lines define the positions of features in image 1 and image 2, that match to each other. (e.g the feature in line 0 of the features file of image 1 match to the feature in line 0 of the features file of image 2, etc)
+  * The following lines define the positions of features in image A and image B, that match. (e.g the feature in line 0 of the features file of image A matches to the feature in line 0 of the features file of image B, etc)
 </details>
 
 <details>
-  <summary>features Example</summary>
+  <summary>features.feat Example</summary>
 
   ```
   338.0 130.0
@@ -296,6 +291,7 @@ Since Developer Documentation for creating custom Meshroom Nodes is hard to come
   ```
 * Every line defines a feature in coordinates of width and height
 * One features file exists for every image
+* The naming convention for features files is as follows: `<viewId>.<extraction_algorithm>.feat`(e.g. _270452153.dspsift.feat_)
 </details>
 
 > [!NOTE]  
@@ -321,13 +317,13 @@ Since Developer Documentation for creating custom Meshroom Nodes is hard to come
 > [!WARNING]  
 > This Node was developed for debugging, it is not recommended to be used on large datasets.
 
-  | Inputs | Function |
+  | Inputs | Description |
   |----------|:-------------|
   | sfmData        | A sfm file defining metadata about the images, such as filepath, sensor size, etc. |
   | matchesFolder  | The folder, where matches are stored |
   | featuresFolder | The folder, where features are stored |
 
-   | Outputs | Function |
+   | Outputs | Description |
   |----------|:-------------|
   | output  | The output folder for the resulting images |
 
@@ -337,13 +333,13 @@ Since Developer Documentation for creating custom Meshroom Nodes is hard to come
   ![DFMImageTree Node in Meshroom][dfm-imagetree-node]
 
   * The DFMImageTree Node allows you to create the inputPairs, that are needed for the DeepFeatureMatching Node
-  * The original Meshroom Node _imageMatches_ relies on previously extracted features to build the pyramid structure and can therefore not be used with the DFM algorithm
+  * The original [Image Matching][image-matching-url] Node from AliceVision relies on previously extracted features to build the pyramid structure and can therefore not be used with the DFM algorithm
 
-  | Inputs | Function |
+  | Inputs | Description |
   |----------|:-------------|
   | sfmData    | A sfm file defining metadata about the images, such as filepath, sensor size, etc. |
 
-  | Outputs | Function |
+  | Outputs | Description |
   |----------|:-------------|
   | imagePairs | A text file containing the IDs of images to match in a pyramid order |
 
@@ -432,3 +428,10 @@ Project Link: [https://github.com/mirkosprojects/MeshroomDFM](https://github.com
 [dfm-pipeline]: images/dfm_pipeline.png
 [photogrammetry-pipeline]: images/photogrammetry_pipeline.png
 [dfm-result]: images/dfm_result.png
+
+<!-- ALICEVISION URLS -->
+[feature-extraction-url]: https://alicevision.org/#photogrammetry/natural_feature_extraction
+[image-matching-url]: https://alicevision.org/#photogrammetry/image_matching
+[feature-matching-url]: https://alicevision.org/#photogrammetry/feature_matching
+[alicevision-pipeline-url]: https://alicevision.org/#photogrammetry
+[alicevision-requirements-url]: https://meshroom-manual.readthedocs.io/en/bibtex1/install/requirements/requirements.html
