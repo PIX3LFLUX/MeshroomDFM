@@ -25,14 +25,14 @@
   </p>
 </div>
 
-> [!NOTE]  
+<!-- > [!NOTE]  
 > Highlights information that users should take into account, even when skimming.
 
 > [!IMPORTANT]  
 > Crucial information necessary for users to succeed.
 
 > [!WARNING]  
-> Critical content demanding immediate user attention due to potential risks.
+> Critical content demanding immediate user attention due to potential risks. -->
 
 <!-- TABLE OF CONTENTS -->
 <a name="readme-toc"></a>
@@ -111,7 +111,7 @@ Since Developer Documentation for creating custom Meshroom Nodes is hard to come
     pyinstaller dfm_analyzer.spec     # build Deep Feature Matching Analyzer
     ```
 
-> **Note**
+> [!NOTE]  
 > Pyinstaller only allows to build binaries for the platform you're running on.
 > If you wish to build the binaries for windows, you have to execute pyinstaller on a windows machine.
 
@@ -298,10 +298,10 @@ Since Developer Documentation for creating custom Meshroom Nodes is hard to come
 * One features file exists for every image
 </details>
 
-> **Note**
+> [!NOTE]  
 > Depending on the capabilities of your graphics card, you might need to adjust the image size of the input images. You can use the ImageProcessing Node to scale down the images.
 
-> **Warning**
+> [!WARNING]  
 > With the current implementation of MeshroomDFM, the Deep Feature Matching Algorithm produces matches and features, however in my experiments, the pipeline produces errors either in the Structure from Motion or in the Meshing step.
 > To fix this, further research is needed.
 
@@ -318,7 +318,7 @@ Since Developer Documentation for creating custom Meshroom Nodes is hard to come
   ![Result of DeepFeatureMatchingAnalyzer Node][dfm-result]
 
   * The DeepFeatureMatchingAnalyzer Node draws all matches between two images as shown above.
-> **Warning**
+> [!WARNING]  
 > This Node was developed for debugging, it is not recommended to be used on large datasets.
 
   | Inputs | Function |
