@@ -6,11 +6,9 @@ import numpy as np
 from PIL import Image
 import argparse
 
-def draw_matches(matchesFolder, featuresFolder, sfmDataFile, outputDir):
-    """
-    Draws the matches between two images
-    """
+def main(matchesFolder, featuresFolder, sfmDataFile, outputDir):
 
+    # Create output directory and load the input data
     if not os.path.exists(outputDir):
         os.makedirs(outputDir)
     
@@ -18,6 +16,8 @@ def draw_matches(matchesFolder, featuresFolder, sfmDataFile, outputDir):
         sfmData = json.load(f)
 
     matchesFiles = os.listdir(matchesFolder)
+
+    # Iterate over all matches.txt files
     for matchesFile in matchesFiles:
         with open(os.path.join(matchesFolder, matchesFile), 'r') as f:
             lines = f.read().splitlines()
@@ -31,6 +31,7 @@ def draw_matches(matchesFolder, featuresFolder, sfmDataFile, outputDir):
         with open(os.path.join(featuresFolder, imageB + ".dspsift.feat"), 'r') as f:
             featuresB = f.read().splitlines()
 
+        # load matching features between imageA and imageB, save coordinates in matches list
         matches = [[], []]
         for line in lines[3:]:
             match_posA = int(line.split(" ")[0])
@@ -41,17 +42,21 @@ def draw_matches(matchesFolder, featuresFolder, sfmDataFile, outputDir):
             matches[0].append(matchA)
             matches[1].append(matchB)
 
+        # get the image path from viedId
         imgPath_A = next(item["path"] for item in sfmData["views"] if str(item["viewId"]) == imageA)
         imgPath_B = next(item["path"] for item in sfmData["views"] if str(item["viewId"]) == imageB)
+
+        # load the images
         img_A = np.array(Image.open(imgPath_A))
         img_B = np.array(Image.open(imgPath_B))
 
-        result_img = draw_matches1(img_A, img_B, matches[0], matches[1])
+        # draw and save the matches
+        result_img = draw_matches(img_A, img_B, matches[0], matches[1])
         cv2.imwrite(os.path.join(outputDir, imageA + "_" + imageB + ".png"), result_img)
-        print("done " + imageA + imageB)
 
 
-def draw_matches1(img_A, img_B, keypoints0, keypoints1):
+def draw_matches(img_A, img_B, keypoints0, keypoints1):
+    """Arranges img_A and img_B horizontally and draws lines between matched features"""
     
     p1s = []
     p2s = []
@@ -82,4 +87,4 @@ if __name__ == '__main__':
     featuresFolder = args.features
     outputFolder = args.output
 
-    draw_matches(matchesFolder, featuresFolder, sfmDataFile, outputFolder)
+    main(matchesFolder, featuresFolder, sfmDataFile, outputFolder)
