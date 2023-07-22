@@ -480,18 +480,24 @@ Since Developer Documentation for creating custom Meshroom Nodes is hard to come
   The code above shows the complete implementation of the DeepFeatureMatching Node. It contains the two file inputs `sfmData` and `imagePairs`, one integer input `minMatches` and two file outputs `matches` and `features`. The inputs and outputs are displayed in Meshroom as shown in the picture.
 
   The `commandLine` variable gets executed in the shell. There are two options to construct the variable:
-  1. **With the _allParams_ option**\
-    All parameters get appended to the command in the form `--name value`. The above code would produce the command `dfm_wrapper --sfmData sfmDataValue --imagePairs imagePairsValue --minMatches minMatchesValue --matches matchesValue --features featuresValue`
+    
+  * **With the _allParams_ option**
 
-  2. **With specific parameters**\
-    The command is a fully customizable string, where parameters can be used by adding their value. For a parameter named `myParameter`, you can use `{myParameterValue}` to access it's value in the command.
+    ```py
+    commandLine = 'my_executable {allParams}'
+    ```
+    All parameters get appended to the command in the form `--name value`. The Deep Feature Matching Node would produce the command `dfm_wrapper --sfmData sfmDataValue --imagePairs imagePairsValue --minMatches minMatchesValue --matches matchesValue --features featuresValue`
 
-  <!-- The Deep Feature Matching Node takes the input and output parameters and executes the command `commandLine` in the shell. It uses the name of the input and output parameters, appended with _Value_ to reference the value of the parameters. 
-  
-  (e.g. `sfmDataValue` is the value of the file input with name _sfmData_).
-  Alternatively, you can use `commandLine = 'dfm_wrapper.py {allParams}'` to use all parameters. -->
+  * **With specific parameters**
 
-  Additional Input and Output Parameters can be found in [DevDoc][meshroom-developer-documentation]
+    ```py
+    commandLine = 'my_executable custom text {myParameterValue} more custom text'
+    ```
+    The command is a fully customizable string, where parameters can be used inside curly brackets. For a parameter named `myParameter`, you can use `{myParameterValue}` to access it's value in the command.
+
+  > [!NOTE]  
+  > Additional GUI Elements can be found in [DevDoc][meshroom-developer-documentation] 
+  > All Elements (`File`, `IntParam`, `FloatParam`, `BoolParam`, `StringParam`, `ListAttribute`, `GroupAttribute`, `ChoiceParam`) can be found in the [desc.py Source Code][meshroom-desc.py]
 
   ### Building the Executable
 
@@ -613,6 +619,7 @@ Project Link: [https://github.com/mirkosprojects/MeshroomDFM](https://github.com
 [alicevision-pipeline-url]: https://alicevision.org/#photogrammetry
 [alicevision-requirements-url]: https://meshroom-manual.readthedocs.io/en/bibtex1/install/requirements/requirements.html
 [meshroom-node-documentation]: https://meshroom-manual.readthedocs.io/en/latest/feature-documentation/core/nodes.html
+[meshroom-desc.py]: https://github.com/alicevision/Meshroom/blob/develop/meshroom/core/desc.py
 
 <!-- ALICEVISION NODES -->
 [sketchfabupload]: https://github.com/alicevision/meshroom/blob/develop/meshroom/nodes/aliceVision/SketchfabUpload.py
