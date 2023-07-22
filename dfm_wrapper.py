@@ -5,11 +5,9 @@ from PIL import Image
 import os
 import csv
 import argparse
-# from torchvision import torch
-
 
 def main(sfmDataFile, imagePairsFile, matchesFolder, featuresFolder, minMatches):
-    # code for the node to run goes here
+
     imagePairs = load_image_pairs(imagePairsFile, sfmDataFile)
     dfm(imagePairs, matchesFolder, featuresFolder, minMatches)
 
@@ -51,8 +49,6 @@ def dfm(imagePairs, matchesFolder, featuresFolder, minMatches):
         os.makedirs(featuresFolder)
 
     fm = DeepFeatureMatcher(enable_two_stage=True, model='VGG19_BN', ratio_th=[0.9, 0.9, 0.9, 0.9, 0.95, 1.0], bidirectional=True)
-    # torch.cuda.empty_cache()
-    # print(torch.cuda.memory_summary(device=None, abbreviated=False))
 
     # create a dictonary containing the offsets for every image id
     imageIdList1 = [str(id[0]["viewId"]) for id in imagePairs]
@@ -84,19 +80,6 @@ def dfm(imagePairs, matchesFolder, featuresFolder, minMatches):
         # TODO: since every detected feature is a match, this is redundant. Remove this and write the offset for the matches directly
         mtchs = np.vstack([np.arange(0, keypoints0.shape[0])]*2).T
 
-        # old, saves keypoints and matches to npz file
-        # matchesFileName = str(imagePair[0]["viewId"]) + '_' + str(imagePair[1]["viewId"]) + "_matches"
-        # np.savez_compressed(os.path.join(matchesFolder, matchesFileName),
-        #                     keypoints0=keypoints0,
-        #                     keypoints1=keypoints1,
-        #                     matches=mtchs)
-
-        
-        
-
-        # PROBLEM: dfm program doesn't search for all features, instead it matches features from two images
-        # SOLUTION: do feature matching with dfm, append all features of one image to a file
-
         if len(mtchs) >= minMatches:
             # write matches file (matches keypoints from imgA to keypoints from imgB) 
             with open(os.path.join(matchesFolder, f"{idx}.matches.txt"), 'a') as f:
@@ -127,7 +110,6 @@ def dfm(imagePairs, matchesFolder, featuresFolder, minMatches):
             print(f"Not enough matches for pair {image1Id}, {image2Id}: {len(mtchs)}")
 
 
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-sfmData', type=str, required=True)
@@ -137,16 +119,12 @@ if __name__ == '__main__':
     parser.add_argument('--minMatches', type=int)
 
     args = parser.parse_args()
-    sfmDataFile = args.sfmData
-    imagePairsFile = args.imagePairs
-    matchesFolder = args.matches
-    featuresFolder = args.features
-    minMatches = args.minMatches
 
-    print(f"""Executing dfm program with the following parameters:
-    sfmData: {sfmDataFile}
-    imagePairs: {imagePairsFile}
-    matches: {matchesFolder}
-    features: {featuresFolder}""")
+    print(f"""Executing the deep feature matching alforithm with the following parameters:
+    sfmData: {args.sfmData}
+    imagePairs: {args.imagePairs}
+    matches: {args.matches}
+    features: {args.features}
+    minMatches: {args.minMatches}""")
 
-    main(sfmDataFile, imagePairsFile, matchesFolder, featuresFolder, minMatches)
+    main(args.sfmData, args.imagePairs, args.matches, args.features, args.minMatches)

@@ -82,9 +82,4 @@ if __name__ == '__main__':
     parser.add_argument('-output', type=str, required=True)
 
     args = parser.parse_args()
-    sfmDataFile = args.sfmData
-    matchesFolder = args.matches
-    featuresFolder = args.features
-    outputFolder = args.output
-
-    main(matchesFolder, featuresFolder, sfmDataFile, outputFolder)
+    main(args.matches, args.features, args.sfmData, args.output)
