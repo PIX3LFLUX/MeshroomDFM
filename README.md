@@ -496,7 +496,7 @@ Since Developer Documentation for creating custom Meshroom Nodes is hard to come
     The command is a fully customizable string, where parameters can be used inside curly brackets. For a parameter named `myParameter`, you can use `{myParameterValue}` to access it's value in the command.
 
   > [!NOTE]  
-  > Additional GUI Elements can be found in [DevDoc][meshroom-developer-documentation] 
+  > Additional GUI Elements can be found in [DevDoc][meshroom-developer-documentation].  
   > All Elements (`File`, `IntParam`, `FloatParam`, `BoolParam`, `StringParam`, `ListAttribute`, `GroupAttribute`, `ChoiceParam`) can be found in the [desc.py Source Code][meshroom-desc.py]
 
   ### Building the Executable
