@@ -44,7 +44,7 @@
         <li><a href="#adding-the-dfm-nodes-to-meshroom">Adding the DFM Nodes to Meshroom</a></li>
         <li><a href="#using-the-dfm-nodes">Using the DFM Nodes</a></li>
       </ul>
-    <li><a href="#developing-meshroom-nodes">Developing Meshroom Nodes</a></li>
+    <li><a href="#wiki">Wiki</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
@@ -345,208 +345,11 @@ Since Developer Documentation for creating custom Meshroom Nodes is hard to come
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Wiki
 
-<!-- DEVELOPER DOCUMENTATION FOR MESHROOM NODES -->
-## Developing Meshroom Nodes
+Read the [Wiki][wiki] for more information about this project.
 
-  Documentation for developing Meshroom Nodes is sparse, some ressources are linked below. The following chapter goes into detail about building Nodes for Meshroom using python.
-
-  * [Official Documentation][meshroom-node-documentation]
-  * [DevDoc][meshroom-developer-documentation]
-
-  **TODO: define Node here**
-
-  > [!IMPORTANT]  
-  > It is recommended to use Command Line Nodes for the Deep Feature Matching Algorithm, since it depends on libraries such as cudatoolkit, torchvision, etc.
-
-  > [!IMPORTANT]  
-  > If you use Command Line Nodes, it is recommended to create a new conda environment with the required dependencies. For the Deep Feature Matching algorithm, you can follow the <a href="#building-from-source">Building from Source</a> instructions and use the _MeshroomDFM_ environment.
-
-  ### Command Line Nodes
-
-  ```py
-  from meshroom.core import desc
-
-  class MyNode(desc.CommandLineNode):
-      commandLine = 'myExecutable {allParams}'
-  ```
-
-  Most meshroom nodes are programmed as command line nodes. They use the command to call executables stored in `lib/meshroom/nodes/aliceVision`.\
-  To make a python program executable, you can use pyinstaller. This will be covered in <a href="#building-the-executable">Building the executable</a>.\
-  The benefit of Command Line Nodes is that the program is self-contained in an executable and doesn't depend on any other packages.
-
-<!-- <ul>
-  <li style="list-style-type: '👍 '">No package dependecy issues
-  <li style="list-style-type: '👎 '">Has to be exported to executable
-  <li style="list-style-type: '👎 '">Logging is more difficult
-</ul> -->
-
-  ### Native Python Nodes
-
-  ```py
-  from meshroom.core import desc
-
-  class MyNode(desc.Node):
-      def processChunk(self, chunk):
-          # code for the node to run goes here
-
-      # optional
-      def stopProcess(self, chunk):
-          # code here runs when the stop button is clicked
-   ```
-
-  Some nodes, such as [SketchFabUpload.py][sketchfabupload] are implemented as Native Python Nodes.
-  These are usually simple nodes, that don't rely on additional libraries and are therefore easier to distribute.
-  If you need additional libraries in your Native Python Node, you have to place the additional packages into the `lib` directory.
-
-  ### Relevant Meshroom Directories
-
-  ```
-  Meshroom
-  ├── lib                       # put additional packages here
-  │   ├── meshroom
-  │   │   ├── nodes
-  |   |   |   ├── aliceVision   # put nodes here
-  |   |   ├── pipelines         # put default pipelines here
-  ├── aliceVision
-  |   ├── bin                   # put executables here
-  ```
-
-  * The `lib` directory is used to store packages, that can be used by the Native Python Nodes
-    * In the example code above, desc gets imported from meshroom.core. It is stored in `lib/meshroom/core/desc.pyc`
-  * The `lib/meshroom/nodes/aliceVision` directory is used to store the nodes
-  * The `lib/meshroom/pipelines` direcctory is used to store the default pipelines
-  * The `aliceVision/bin` directory is used to store the compiled executables that get called by the Command Line Nodes
-
-  ### GUI Elements
-
-  ```py
-    from meshroom.core import desc
-
-    # Deep Feature Matching Node
-    class DeepFeatureMatching(desc.CommandLineNode):
-
-        # construct the call to the commandline with all parameters
-        commandLine = 'dfm_wrapper {allParams}'
-
-        # or construct the call to the commandline with specific parameters
-        commandLine = 'dfm_wrapper -sfmData {sfmDataValue} -imagePairs {imagePairsValue} -matches {matchesValue} -features {featuresValue} --minMatches {minMatchesValue}'
-
-        inputs = [
-            desc.File(
-                    name="sfmData",
-                    label="SfMData",
-                    description="SFM data file.",
-                    value=desc.Node.internalFolder,
-                    uid=[0],
-        ),
-            desc.File(
-                    name="imagePairs",
-                    label="Image Pairs",
-                    description="Path to a file which contains the list of image pairs to match.",
-                    value=desc.Node.internalFolder,
-                    uid=[0],
-        ),
-            desc.IntParam(
-                name='minMatches',
-                label='Minimum Matches',
-                description='''The minimum number of matches required in order to save image pair in matches file''',
-                value=100,
-                range=None,
-                uid=[0],
-            )
-        ]
-
-        outputs = [
-            desc.File(
-                name="matches",
-                label="Matches Folder",
-                description="Matched features file",
-                value=desc.Node.internalFolder + '/matches',
-                uid=[0],
-                ),
-            desc.File(
-            name="features",
-            label="Features Folder",
-            description="Output path for the features files (*.feat)",
-            value=desc.Node.internalFolder + '/features',
-            uid=[0],
-            )
-        ]
-  ```
-
-  ![Deep Feature Matching Parameters inside the Meshroom Interface][dfm-parameters]
-
-  The code above shows the complete implementation of the DeepFeatureMatching Node. It contains the two file inputs `sfmData` and `imagePairs`, one integer input `minMatches` and two file outputs `matches` and `features`. The inputs and outputs are displayed in Meshroom as shown in the picture.
-
-  The `commandLine` variable gets executed in the shell. There are two options to construct the variable:
-    
-  * **With the _allParams_ option**
-
-    ```py
-    commandLine = 'my_executable {allParams}'
-    ```
-    All parameters get appended to the command in the form `--name value`. The Deep Feature Matching Node would produce the command `dfm_wrapper --sfmData sfmDataValue --imagePairs imagePairsValue --minMatches minMatchesValue --matches matchesValue --features featuresValue`
-
-  * **With specific parameters**
-
-    ```py
-    commandLine = 'my_executable custom text {myParameterValue} more custom text'
-    ```
-    The command is a fully customizable string, where parameters can be used inside curly brackets. For a parameter named `myParameter`, you can use `{myParameterValue}` to access it's value in the command.
-
-  > [!NOTE]  
-  > Additional GUI Elements can be found in [DevDoc][meshroom-developer-documentation].  
-  > All Elements (`File`, `IntParam`, `FloatParam`, `BoolParam`, `StringParam`, `ListAttribute`, `GroupAttribute`, `ChoiceParam`) can be found in the [desc.py Source Code][meshroom-desc.py]
-
-  ### Building the Executable
-
-  If you want to use the Command Line Node to develop your custom Meshroom program, you have to build an executable, that actually runs your program.
-  Most Alicevision Nodes are programmed in C++, this documentation however focuses on python. 
-
-  The [dfm_wrapper.py][dfm-wrapper-url] get's executed by the DeepFeatureMatching Node with the `commandLine` shell command. Therefore, we need the dfm_analyzer.py to accept input arguments, which is possible with argsparse.
-
-  ```py
-  if __name__ == '__main__':
-      parser = argparse.ArgumentParser()
-      parser.add_argument('-sfmData', type=str, required=True)
-      parser.add_argument('-imagePairs', type=str, required=True)
-      parser.add_argument('-matches', type=str, required=True)
-      parser.add_argument('-features', type=str, required=True)
-      parser.add_argument('--minMatches', type=int)
-
-      args = parser.parse_args()
-  ```
-
-  The corresponding `commandLine` variable from the DeepFeatureMatching Node looks as follows.
-
-  ```py
-  class DeepFeatureMatching(desc.CommandLineNode):
-      commandLine = 'dfm_wrapper -sfmData {sfmDataValue} -imagePairs {imagePairsValue} -matches {matchesValue} -features {featuresValue} --minMatches {minMatchesValue}'
-  ```
-  In order for your Command Line Node to execute the dfm_wrapper.py program, you have to build the executable. A popular library to do this is pyinstaller.
-
-  ```sh
-  pyinstaller dfm_wrapper.py --onefile    # build the program for the first time
-  pyinstaller dfm_wrapper.spec            # use this if you already have a dfm_wrapper.spec file
-  ```
-
-  > [!NOTE]  
-  > The option --onefile makes sure to package everything in one executable
-
-  Pyinstaller will create the following files and directories:
-  * **build:** Contains metadata and files used by pyinstaller internally (can be largely ignored)
-  * **dist:** Contains the final executable
-  * **dfm_analyzer.spec:** The spec file contains the build settings, it is automatically created
-
-  After the build is completed, you can place the executable in the `aliceVision/bin` directory and the Node in the `lib/meshroom/nodes/aliceVision` as described in <a href="#relevant-meshroom-directories">Relevant Meshroom Directories</a>.
-
-
-<!-- PICTURES AND VIDEOS -->
-<!-- ## Pictures and Videos
-
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 <!-- LICENSE -->
@@ -611,6 +414,7 @@ Project Link: [https://github.com/mirkosprojects/MeshroomDFM](https://github.com
 [meshroom-developer-documentation]: https://github.com/natowi/meshroom_external_plugins/wiki/2-DevDoc
 [dfm-analyzer-url]: https://github.com/mirkosprojects/MeshroomDFM/blob/main/dfm_analyzer.py
 [dfm-wrapper-url]: https://github.com/mirkosprojects/MeshroomDFM/blob/main/dfm_wrapper.py
+[wiki]: https://github.com/mirkosprojects/MeshroomDFM/wiki
 
 <!-- ALICEVISION URLS -->
 [feature-extraction-url]: https://alicevision.org/#photogrammetry/natural_feature_extraction
