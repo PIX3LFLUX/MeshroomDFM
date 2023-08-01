@@ -20,7 +20,7 @@
   <p align="center">
     Meshroom DFM is a Meshroom implementation of the Deep Feature Matching Algorithm from <a href="https://github.com/ufukefe/DFM">ufukefe</a>.
     <br />
-    <a href="#readme-toc"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/mirkosprojects/MeshroomDFM/wiki"><strong>Explore the wiki »</strong></a>
     <br />
   </p>
 </div>
@@ -56,6 +56,8 @@
 
 MeshroomDFM is a project designed for [Alicevision Meshroom][meshroom-url], that employs a Convolutional Neural Network to generate and refine feature matches between multiple images.
 The goal of this project is to replace the classical Photogrammetry Pipeline Nodes for Feature Extraction, Image Matching and Feature Matching with an all-in-one solution.
+
+Part of the project focuses on evaluation of different Feature Matching Algorithms using the [HPatches][hpatches-url] dataset and the customized [Image Matching Evaluation][ime-url] repository.
 
 Since Developer Documentation for creating custom Meshroom Nodes is hard to come by, this project will also give you step by step instructions for building and deploying Meshroom Nodes using python and pyinstaller.
 
@@ -373,7 +375,7 @@ Project Link: [https://github.com/mirkosprojects/MeshroomDFM](https://github.com
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* [Readme Template](https://github.com/othneildrew/Best-README-Template)
+* [Best-README-Template](https://github.com/othneildrew/Best-README-Template)
 * [DFM: A Performance Baseline for Deep Feature Matching][dfm-url]
 * [Alicevision Meshroom][meshroom-url]
 * <a href="https://www.flaticon.com/free-icons/machine-learning" title="machine learning icons">Machine learning icons created by Becris - Flaticon</a>
@@ -415,6 +417,8 @@ Project Link: [https://github.com/mirkosprojects/MeshroomDFM](https://github.com
 [dfm-analyzer-url]: https://github.com/mirkosprojects/MeshroomDFM/blob/main/dfm_analyzer.py
 [dfm-wrapper-url]: https://github.com/mirkosprojects/MeshroomDFM/blob/main/dfm_wrapper.py
 [wiki]: https://github.com/mirkosprojects/MeshroomDFM/wiki
+[ime-url]: https://github.com/mirkosprojects/IME
+[hpatches-url]: https://github.com/hpatches/hpatches-dataset
 
 <!-- ALICEVISION URLS -->
 [feature-extraction-url]: https://alicevision.org/#photogrammetry/natural_feature_extraction
