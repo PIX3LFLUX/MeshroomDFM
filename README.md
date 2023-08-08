@@ -20,7 +20,7 @@
   <p align="center">
     Meshroom DFM is a Meshroom implementation of the Deep Feature Matching Algorithm from <a href="https://github.com/ufukefe/DFM">ufukefe</a>.
     <br />
-    <a href="https://github.com/mirkosprojects/MeshroomDFM/wiki"><strong>Explore the wiki »</strong></a>
+    <a href="https://github.com/PIX3LFLUX/MeshroomDFM/wiki"><strong>Explore the wiki »</strong></a>
     <br />
   </p>
 </div>
@@ -81,7 +81,7 @@ Since Developer Documentation for creating custom Meshroom Nodes is hard to come
 
   * Download the project
     ```sh
-    git clone https://github.com/mirkosprojects/MeshroomDFM.git
+    git clone https://github.com/PIX3LFLUX/MeshroomDFM.git
     ```
 
   * Navigate to the project directory
@@ -367,7 +367,7 @@ Distributed under the MIT License. See [LICENSE][license-url] for more informati
 
 Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
 
-Project Link: [https://github.com/mirkosprojects/MeshroomDFM](https://github.com/mirkosprojects/MeshroomDFM)
+Project Link: [https://github.com/PIX3LFLUX/MeshroomDFM](https://github.com/PIX3LFLUX/MeshroomDFM)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
@@ -388,22 +388,22 @@ Project Link: [https://github.com/mirkosprojects/MeshroomDFM](https://github.com
 
 <!-- SHIELDS -->
 [contributors-shield]: https://img.shields.io/github/contributors/mirkosprojects/MeshroomDFM.svg?style=for-the-badge
-[contributors-url]: https://github.com/mirkosprojects/MeshroomDFM/graphs/contributors
+[contributors-url]: https://github.com/PIX3LFLUX/MeshroomDFM/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/mirkosprojects/MeshroomDFM.svg?style=for-the-badge
-[forks-url]: https://github.com/mirkosprojects/MeshroomDFM/network/members
+[forks-url]: https://github.com/PIX3LFLUX/MeshroomDFM/network/members
 [stars-shield]: https://img.shields.io/github/stars/mirkosprojects/MeshroomDFM.svg?style=for-the-badge
-[stars-url]: https://github.com/mirkosprojects/MeshroomDFM/stargazers
+[stars-url]: https://github.com/PIX3LFLUX/MeshroomDFM/stargazers
 [issues-shield]: https://img.shields.io/github/issues/mirkosprojects/MeshroomDFM.svg?style=for-the-badge
-[issues-url]: https://github.com/mirkosprojects/MeshroomDFM/issues
+[issues-url]: https://github.com/PIX3LFLUX/MeshroomDFM/issues
 [license-shield]: https://img.shields.io/github/license/mirkosprojects/MeshroomDFM.svg?style=for-the-badge
-[license-url]: https://github.com/mirkosprojects/MeshroomDFM/blob/main/LICENSE
+[license-url]: https://github.com/PIX3LFLUX/MeshroomDFM/blob/main/LICENSE
 
 <!-- LIBRARIES -->
 [meshroom-url]: https://github.com/alicevision/Meshroom
 [dfm-url]: https://github.com/ufukefe/DFM
 
 <!-- RESSOURCES -->
-[latest-release]: https://github.com/mirkosprojects/MeshroomDFM/releases/latest/
+[latest-release]: https://github.com/PIX3LFLUX/MeshroomDFM/releases/latest/
 [dfm-node]: images/DeepFeatureMatching.png
 [dfm-analyzer-node]: images/DeepFeatureMatchingAnalyzer.png
 [dfm-imagetree-node]: images/DFMImageTree.png
@@ -414,9 +414,9 @@ Project Link: [https://github.com/mirkosprojects/MeshroomDFM](https://github.com
 [dfm-analyzer-parameters]: images/dfm_analyzer_parameters.png
 [dfm-imagertree-parameters]: images/dfm_imagetree_parameters.png
 [meshroom-developer-documentation]: https://github.com/natowi/meshroom_external_plugins/wiki/2-DevDoc
-[dfm-analyzer-url]: https://github.com/mirkosprojects/MeshroomDFM/blob/main/dfm_analyzer.py
-[dfm-wrapper-url]: https://github.com/mirkosprojects/MeshroomDFM/blob/main/dfm_wrapper.py
-[wiki]: https://github.com/mirkosprojects/MeshroomDFM/wiki
+[dfm-analyzer-url]: https://github.com/PIX3LFLUX/MeshroomDFM/blob/main/dfm_analyzer.py
+[dfm-wrapper-url]: https://github.com/PIX3LFLUX/MeshroomDFM/blob/main/dfm_wrapper.py
+[wiki]: https://github.com/PIX3LFLUX/MeshroomDFM/wiki
 [ime-url]: https://github.com/mirkosprojects/IME
 [hpatches-url]: https://github.com/hpatches/hpatches-dataset
 
